@@ -25,9 +25,9 @@ import {
 } from "lucide-react";
 import { SiTiktok } from "react-icons/si";
 
-import logoMarcelo from "@assets/WhatsApp_Image_2026-02-19_at_10.00.17_1772540466099.jpeg";
-import heroImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.41_1772541482438.jpeg";
-import gymProfile from "@assets/WhatsApp_Image_2026-03-03_at_07.27.46_1772541482436.jpeg";
+import heroImg from "@assets/WhatsApp_Image_2026-03-03_at_09.55.44_1772543373679.jpeg";
+import aboutImg from "@assets/WhatsApp_Image_2026-03-03_at_09.58.01_1772543413686.jpeg";
+import fatburnImg from "@assets/WhatsApp_Image_2026-03-03_at_10.02.08_1772543555325.jpeg";
 import curlImg from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_(2)_1772541482437.jpeg";
 import sittingImg from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_(3)_1772541482437.jpeg";
 import phoneImg from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_(4)_1772541482437.jpeg";
@@ -36,6 +36,7 @@ import machineImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_(3)_177254
 import standingImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_1772541482439.jpeg";
 import weightImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_(2)_1772541482439.jpeg";
 import loadingPlate from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_(1)_1772541482438.jpeg";
+import gymProfile from "@assets/WhatsApp_Image_2026-03-03_at_07.27.46_1772541482436.jpeg";
 
 const WHATSAPP_NUMBER = "5547996106869";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -127,13 +128,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-3" data-testid="link-home">
-            <img src={logoMarcelo} alt="MT" className="h-10 w-10 rounded-full object-cover border border-amber-500/30" />
-            <div className="flex flex-col">
-              <span className="font-heading font-bold text-sm tracking-[0.2em] uppercase gold-text leading-tight">
-                Marcelo Torres
-              </span>
-              <span className="text-white/30 text-[9px] tracking-[0.15em] uppercase">Personal Trainer</span>
-            </div>
+            <img src="/logo-mt.png" alt="Marcelo Torres" className="h-8 sm:h-10 w-auto" />
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -141,11 +136,11 @@ function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-white/60 hover:text-amber-400 transition-colors duration-300 no-underline relative group"
+                className="text-sm font-medium text-white/60 hover:text-orange-400 transition-colors duration-300 no-underline relative group"
                 data-testid={`link-nav-${item.label.toLowerCase()}`}
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-amber-500 group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-orange-500 group-hover:w-full transition-all duration-300" />
               </a>
             ))}
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
@@ -225,7 +220,7 @@ function HeroSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-amber-400/90 font-heading text-xs sm:text-sm tracking-[0.4em] uppercase mb-4"
+            className="text-orange-400/90 font-heading text-xs sm:text-sm tracking-[0.4em] uppercase mb-4"
           >
             Personal Trainer
           </motion.p>
@@ -248,7 +243,7 @@ function HeroSection() {
             className="max-w-md"
           >
             <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-8">
-              Mais de <span className="text-amber-400 font-semibold">10 anos</span> transformando
+              Mais de <span className="text-orange-400 font-semibold">10 anos</span> transformando
               vidas através da atividade física. Alunos em{" "}
               <span className="text-white font-medium">5 continentes</span>.
             </p>
@@ -324,14 +319,14 @@ function AboutSection() {
           >
             <div className="relative">
               <img
-                src={gymProfile}
+                src={aboutImg}
                 alt="Marcelo Torres"
                 className="w-full h-[500px] sm:h-[600px] object-cover rounded-md"
                 data-testid="img-about"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-md" />
             </div>
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 sm:w-40 sm:h-40 border border-amber-500/20 rounded-md hidden lg:block" />
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 sm:w-40 sm:h-40 border border-orange-500/20 rounded-md hidden lg:block" />
           </motion.div>
 
           <motion.div
@@ -340,7 +335,7 @@ function AboutSection() {
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            <span className="text-amber-400/70 text-xs tracking-[0.3em] uppercase font-heading mb-4 block">
+            <span className="text-orange-400/70 text-xs tracking-[0.3em] uppercase font-heading mb-4 block">
               Quem sou eu
             </span>
             <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-6 leading-tight">
@@ -354,7 +349,7 @@ function AboutSection() {
                 que une ciência, prática e motivação para resultados reais e duradouros.
               </p>
               <p>
-                Atendo alunos em <span className="text-amber-400 font-medium">5 continentes</span>,{" "}
+                Atendo alunos em <span className="text-orange-400 font-medium">5 continentes</span>,{" "}
                 <span className="text-white font-medium">17 países</span> e{" "}
                 <span className="text-white font-medium">14 estados brasileiros</span>,
                 provando que distância não é barreira quando existe comprometimento.
@@ -390,7 +385,7 @@ function PhotoStrip() {
         transition={{ duration: 1 }}
         className="flex gap-2 sm:gap-4"
       >
-        {[dumbbellDetail, curlImg, machineImg, loadingPlate].map((img, i) => (
+        {[dumbbellDetail, gymProfile, machineImg, loadingPlate].map((img, i) => (
           <div key={i} className="flex-1 min-w-0">
             <img
               src={img}
@@ -408,7 +403,7 @@ function PhotoStrip() {
 function FatburnSection() {
   return (
     <section className="py-20 sm:py-28 px-4 relative" id="planos">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-amber-950/5 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-orange-950/5 to-background" />
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
           variants={fadeInUp}
@@ -417,12 +412,12 @@ function FatburnSection() {
           viewport={{ once: true, margin: "-50px" }}
           className="text-center mb-16"
         >
-          <div className="h-px w-12 bg-amber-500/50 mx-auto mb-4" />
+          <div className="h-px w-12 bg-orange-500/50 mx-auto mb-4" />
           <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight">
             <span className="text-white">TREINE</span>{" "}
             <span className="gold-text">COMIGO</span>
           </h2>
-          <div className="h-px w-12 bg-amber-500/50 mx-auto mt-4" />
+          <div className="h-px w-12 bg-orange-500/50 mx-auto mt-4" />
           <p className="text-white/40 text-sm mt-6 max-w-md mx-auto">
             Escolha o plano ideal para a sua jornada de transformação
           </p>
@@ -437,7 +432,7 @@ function FatburnSection() {
         >
           <div className="relative h-[400px] sm:h-[500px] rounded-md overflow-hidden hidden lg:block">
             <img
-              src={curlImg}
+              src={fatburnImg}
               alt="Fatburn"
               className="w-full h-full object-cover"
             />
@@ -451,7 +446,7 @@ function FatburnSection() {
               </div>
               <div>
                 <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">FATBURN</h3>
-                <p className="text-amber-400/70 text-xs tracking-wider uppercase">Grupo de Emagrecimento</p>
+                <p className="text-orange-400/70 text-xs tracking-wider uppercase">Grupo de Emagrecimento</p>
               </div>
             </div>
 
@@ -462,15 +457,15 @@ function FatburnSection() {
 
             <div className="flex flex-wrap gap-4 mb-8">
               <div className="flex items-center gap-2 text-white/50 text-sm">
-                <Clock className="w-4 h-4 text-amber-500" />
+                <Clock className="w-4 h-4 text-orange-500" />
                 <span>Duração: <span className="text-white font-medium">30 dias</span></span>
               </div>
               <div className="flex items-center gap-2 text-white/50 text-sm">
-                <Trophy className="w-4 h-4 text-amber-500" />
+                <Trophy className="w-4 h-4 text-orange-500" />
                 <span>Premiação por <span className="text-white font-medium">desempenho</span></span>
               </div>
               <div className="flex items-center gap-2 text-white/50 text-sm">
-                <Users className="w-4 h-4 text-amber-500" />
+                <Users className="w-4 h-4 text-orange-500" />
                 <span>Treino em <span className="text-white font-medium">grupo</span></span>
               </div>
             </div>
@@ -513,8 +508,8 @@ function ConsultoriaSection() {
           className="text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 mb-4">
-            <Dumbbell className="w-5 h-5 text-amber-500" />
-            <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Treino Personalizado</span>
+            <Dumbbell className="w-5 h-5 text-orange-500" />
+            <span className="text-orange-400/70 text-xs tracking-[0.2em] uppercase font-heading">Treino Personalizado</span>
           </div>
           <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-4">
             CONSULTORIA <span className="gold-text">INDIVIDUAL</span>
@@ -522,7 +517,7 @@ function ConsultoriaSection() {
           <p className="text-white/40 text-sm sm:text-base max-w-xl mx-auto">
             Monto treinos para você botar em prática em qualquer lugar do mundo, disponível no app.
           </p>
-          <p className="text-amber-400/50 text-xs mt-3 tracking-wider">
+          <p className="text-orange-400/50 text-xs mt-3 tracking-wider">
             Parcelado em até 18x sem juros via PagBank
           </p>
         </motion.div>
@@ -539,7 +534,7 @@ function ConsultoriaSection() {
               key={plan.duration}
               variants={fadeInUp}
               className={`relative glass-card glass-card-hover rounded-md p-6 sm:p-8 transition-all duration-300 ${
-                plan.popular ? "border-amber-500/30 md:scale-105 md:-my-4" : ""
+                plan.popular ? "border-orange-500/30 md:scale-105 md:-my-4" : ""
               }`}
             >
               {plan.popular && (
@@ -573,7 +568,7 @@ function ConsultoriaSection() {
                   "Treino em qualquer lugar",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2 text-white/50 text-sm">
-                    <Check className="w-4 h-4 text-amber-500 shrink-0" />
+                    <Check className="w-4 h-4 text-orange-500 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -624,7 +619,7 @@ function FullWidthImage() {
             <span className="gold-text font-bold not-italic">SEMPRE</span> é{" "}
             <span className="gold-text font-bold not-italic">BONITO</span>"
           </p>
-          <div className="h-px w-16 bg-amber-500/40 mx-auto mt-6" />
+          <div className="h-px w-16 bg-orange-500/40 mx-auto mt-6" />
         </motion.blockquote>
       </div>
     </section>
@@ -656,8 +651,8 @@ function PersonalDigitalSection() {
             viewport={{ once: true, margin: "-50px" }}
           >
             <div className="inline-flex items-center gap-2 mb-4">
-              <Video className="w-5 h-5 text-amber-500" />
-              <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Acompanhamento em Tempo Real</span>
+              <Video className="w-5 h-5 text-orange-500" />
+              <span className="text-orange-400/70 text-xs tracking-[0.2em] uppercase font-heading">Acompanhamento em Tempo Real</span>
             </div>
             <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-4">
               PERSONAL <span className="gold-text">DIGITAL</span>
@@ -673,7 +668,7 @@ function PersonalDigitalSection() {
                   key={plan.times}
                   className="glass-card glass-card-hover rounded-md p-4 text-center transition-all duration-300"
                 >
-                  <p className="text-amber-400 font-heading font-bold text-base mb-0.5">{plan.times} <span className="text-white/30 text-xs font-normal">/ semana</span></p>
+                  <p className="text-orange-400 font-heading font-bold text-base mb-0.5">{plan.times} <span className="text-white/30 text-xs font-normal">/ semana</span></p>
                   <p className="font-heading font-black text-xl text-white">R$ {plan.price}</p>
                 </div>
               ))}
@@ -684,7 +679,7 @@ function PersonalDigitalSection() {
               <div className="flex justify-center gap-6">
                 {discounts.map((d) => (
                   <div key={d.period} className="text-center">
-                    <p className="text-amber-400 font-heading font-bold text-lg">{d.discount}</p>
+                    <p className="text-orange-400 font-heading font-bold text-lg">{d.discount}</p>
                     <p className="text-white/40 text-xs">{d.period}</p>
                   </div>
                 ))}
@@ -734,7 +729,7 @@ function PersonalPresencialSection() {
 
   return (
     <section className="py-20 sm:py-28 px-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-amber-950/5 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-orange-950/5 to-background" />
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <motion.div
@@ -751,7 +746,7 @@ function PersonalPresencialSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/40 rounded-md" />
             <div className="absolute bottom-6 left-6 flex items-center gap-2 bg-black/60 backdrop-blur-md rounded-md px-4 py-2">
-              <MapPin className="w-4 h-4 text-amber-500" />
+              <MapPin className="w-4 h-4 text-orange-500" />
               <span className="text-white/80 text-sm font-heading">Balneário Camboriú, SC</span>
             </div>
           </motion.div>
@@ -763,8 +758,8 @@ function PersonalPresencialSection() {
             viewport={{ once: true, margin: "-50px" }}
           >
             <div className="inline-flex items-center gap-2 mb-4">
-              <Dumbbell className="w-5 h-5 text-amber-500" />
-              <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Balneário Camboriú</span>
+              <Dumbbell className="w-5 h-5 text-orange-500" />
+              <span className="text-orange-400/70 text-xs tracking-[0.2em] uppercase font-heading">Balneário Camboriú</span>
             </div>
             <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-4">
               PERSONAL <span className="gold-text">PRESENCIAL</span>
@@ -780,7 +775,7 @@ function PersonalPresencialSection() {
                   key={plan.times}
                   className="glass-card glass-card-hover rounded-md p-4 text-center transition-all duration-300"
                 >
-                  <p className="text-amber-400 font-heading font-bold text-base mb-0.5">{plan.times} <span className="text-white/30 text-xs font-normal">/ semana</span></p>
+                  <p className="text-orange-400 font-heading font-bold text-base mb-0.5">{plan.times} <span className="text-white/30 text-xs font-normal">/ semana</span></p>
                   <p className="font-heading font-black text-xl text-white">R$ {plan.price}</p>
                 </div>
               ))}
@@ -791,7 +786,7 @@ function PersonalPresencialSection() {
               <div className="flex justify-center gap-6">
                 {discounts.map((d) => (
                   <div key={d.period} className="text-center">
-                    <p className="text-amber-400 font-heading font-bold text-lg">{d.discount}</p>
+                    <p className="text-orange-400 font-heading font-bold text-lg">{d.discount}</p>
                     <p className="text-white/40 text-xs">{d.period}</p>
                   </div>
                 ))}
@@ -800,7 +795,7 @@ function PersonalPresencialSection() {
 
             <div className="lg:hidden glass-card rounded-md p-4 mb-8">
               <div className="flex items-center justify-center gap-2 text-white/60 text-sm">
-                <MapPin className="w-4 h-4 text-amber-500" />
+                <MapPin className="w-4 h-4 text-orange-500" />
                 <span>Balneário Camboriú, SC - Brasil</span>
               </div>
             </div>
@@ -829,8 +824,8 @@ function MentoriaSection() {
             viewport={{ once: true, margin: "-50px" }}
           >
             <div className="inline-flex items-center gap-2 mb-4">
-              <GraduationCap className="w-5 h-5 text-amber-500" />
-              <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Para Profissionais</span>
+              <GraduationCap className="w-5 h-5 text-orange-500" />
+              <span className="text-orange-400/70 text-xs tracking-[0.2em] uppercase font-heading">Para Profissionais</span>
             </div>
             <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-6 leading-tight">
               MENTORIA PARA <span className="gold-text">TREINADORES</span>
@@ -848,7 +843,7 @@ function MentoriaSection() {
                 { icon: <Calendar className="w-5 h-5" />, label: "Precificar", desc: "Seu valor" },
               ].map((item) => (
                 <div key={item.label} className="glass-card rounded-md p-4">
-                  <div className="text-amber-500 mb-2">{item.icon}</div>
+                  <div className="text-orange-500 mb-2">{item.icon}</div>
                   <p className="text-white font-heading font-bold text-sm">{item.label}</p>
                   <p className="text-white/30 text-xs">{item.desc}</p>
                 </div>
@@ -928,12 +923,12 @@ function SocialSection() {
           viewport={{ once: true, margin: "-50px" }}
           className="text-center mb-12 sm:mb-16"
         >
-          <div className="h-px w-12 bg-amber-500/50 mx-auto mb-4" />
+          <div className="h-px w-12 bg-orange-500/50 mx-auto mb-4" />
           <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight">
             <span className="text-white">CONHEÇA MINHAS</span>{" "}
             <span className="gold-text">MÍDIAS</span>
           </h2>
-          <div className="h-px w-12 bg-amber-500/50 mx-auto mt-4" />
+          <div className="h-px w-12 bg-orange-500/50 mx-auto mt-4" />
           <p className="text-white/40 text-sm mt-6">Acompanhe meu conteúdo nas redes sociais</p>
         </motion.div>
 
@@ -952,7 +947,7 @@ function SocialSection() {
             className="glass-card glass-card-hover rounded-md p-8 text-center group transition-all duration-300 no-underline"
             data-testid="link-instagram"
           >
-            <Instagram className="w-8 h-8 text-amber-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+            <Instagram className="w-8 h-8 text-orange-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
             <p className="font-heading font-bold text-white text-sm">Instagram</p>
             <p className="text-white/30 text-xs mt-1">@mtorrespersonal</p>
           </motion.a>
@@ -965,7 +960,7 @@ function SocialSection() {
             className="glass-card glass-card-hover rounded-md p-8 text-center group transition-all duration-300 no-underline"
             data-testid="link-youtube"
           >
-            <Youtube className="w-8 h-8 text-amber-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+            <Youtube className="w-8 h-8 text-orange-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
             <p className="font-heading font-bold text-white text-sm">YouTube</p>
             <p className="text-white/30 text-xs mt-1">Marcelo Torres</p>
           </motion.a>
@@ -978,7 +973,7 @@ function SocialSection() {
             className="glass-card glass-card-hover rounded-md p-8 text-center group transition-all duration-300 no-underline"
             data-testid="link-tiktok"
           >
-            <SiTiktok className="w-7 h-7 text-amber-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+            <SiTiktok className="w-7 h-7 text-orange-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
             <p className="font-heading font-bold text-white text-sm">TikTok</p>
             <p className="text-white/30 text-xs mt-1">@mtorrespersonal</p>
           </motion.a>
@@ -994,17 +989,14 @@ function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img src={logoMarcelo} alt="MT" className="h-8 w-8 rounded-full object-cover border border-amber-500/20" />
-            <span className="font-heading font-bold text-sm tracking-wider uppercase gold-text">
-              Marcelo Torres
-            </span>
+            <img src="/logo-mt.png" alt="Marcelo Torres" className="h-6 w-auto" />
           </div>
 
           <div className="flex items-center gap-4">
-            <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-amber-400 transition-colors no-underline">
+            <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-orange-400 transition-colors no-underline">
               <Instagram className="w-4 h-4" />
             </a>
-            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-amber-400 transition-colors no-underline">
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-orange-400 transition-colors no-underline">
               <MessageCircle className="w-4 h-4" />
             </a>
           </div>
@@ -1053,8 +1045,8 @@ function WhatsAppFloat() {
       data-testid="button-whatsapp-float"
     >
       <MessageCircle className="w-7 h-7 text-white" />
-      <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full animate-ping" />
-      <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full" />
+      <span className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full animate-ping" />
+      <span className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full" />
     </motion.a>
   );
 }

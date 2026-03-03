@@ -17,15 +17,15 @@
   --sidebar: 0 0% 6%;
   --sidebar-foreground: 40 10% 92%;
   --sidebar-border: 40 5% 10%;
-  --sidebar-primary: 40 70% 50%;
+  --sidebar-primary: 30 75% 48%;
   --sidebar-primary-foreground: 0 0% 5%;
   --sidebar-accent: 40 8% 12%;
   --sidebar-accent-foreground: 40 10% 92%;
-  --sidebar-ring: 40 70% 50%;
+  --sidebar-ring: 30 75% 48%;
   --popover: 0 0% 10%;
   --popover-foreground: 40 10% 95%;
   --popover-border: 40 5% 18%;
-  --primary: 40 70% 50%;
+  --primary: 30 75% 48%;
   --primary-foreground: 0 0% 5%;
   --secondary: 40 8% 18%;
   --secondary-foreground: 40 10% 95%;
@@ -36,12 +36,12 @@
   --destructive: 0 72% 45%;
   --destructive-foreground: 0 20% 98%;
   --input: 40 6% 28%;
-  --ring: 40 70% 50%;
-  --chart-1: 40 70% 50%;
-  --chart-2: 35 65% 45%;
-  --chart-3: 30 60% 40%;
-  --chart-4: 25 55% 35%;
-  --chart-5: 20 50% 30%;
+  --ring: 30 75% 48%;
+  --chart-1: 30 75% 48%;
+  --chart-2: 25 70% 44%;
+  --chart-3: 20 65% 40%;
+  --chart-4: 15 60% 36%;
+  --chart-5: 10 55% 32%;
   --font-sans: 'Inter', sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
@@ -158,11 +158,11 @@
   }
 
   .gold-gradient {
-    background: linear-gradient(135deg, #b8860b 0%, #daa520 25%, #ffd700 50%, #daa520 75%, #b8860b 100%);
+    background: linear-gradient(135deg, #8B5E14 0%, #C8962E 30%, #D4A43A 50%, #C8962E 70%, #8B5E14 100%);
   }
 
   .gold-text {
-    background: linear-gradient(135deg, #b8860b 0%, #daa520 25%, #ffd700 50%, #daa520 75%, #b8860b 100%);
+    background: linear-gradient(135deg, #8B5E14 0%, #C8962E 30%, #D4A43A 50%, #C8962E 70%, #8B5E14 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -176,6 +176,6 @@
 
   .glass-card-hover:hover {
     background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(218, 165, 32, 0.3);
+    border-color: rgba(200, 150, 46, 0.3);
   }
 }
