@@ -881,32 +881,6 @@ function MentoriaSection() {
   );
 }
 
-function GallerySection() {
-  return (
-    <section className="py-16 px-4">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 auto-rows-[220px] sm:auto-rows-[280px]"
-        >
-          <div className="row-span-2">
-            <img src={dumbbellPickup} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-0" />
-          </div>
-          <div>
-            <img src={curlImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-1" />
-          </div>
-          <div className="hidden md:block row-span-2">
-            <img src={gymProfile} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-2" />
-          </div>
-        
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 function SocialSection() {
   return (
@@ -1061,7 +1035,7 @@ export default function Home() {
       <PersonalDigitalSection />
       <PersonalPresencialSection />
       <MentoriaSection />
-      <GallerySection />
+      
       <SocialSection />
       <Footer />
       <WhatsAppFloat />
