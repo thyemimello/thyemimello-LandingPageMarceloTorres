@@ -37,6 +37,9 @@ import standingImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_177254148
 import weightImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_(2)_1772541482439.jpeg";
 import loadingPlate from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_(1)_1772541482438.jpeg";
 import gymProfile from "@assets/WhatsApp_Image_2026-03-03_at_07.27.46_1772541482436.jpeg";
+import dumbbellPickup from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_1772541482438.jpeg";
+import airBikeImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.40_1772541482438.jpeg";
+import armsCrossed from "@assets/WhatsApp_Image_2026-03-03_at_07.28.41_1772541482438.jpeg";
 
 const WHATSAPP_NUMBER = "5547996106869";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -385,7 +388,7 @@ function PhotoStrip() {
         transition={{ duration: 1 }}
         className="flex gap-2 sm:gap-4"
       >
-        {[dumbbellDetail, gymProfile, machineImg, loadingPlate].map((img, i) => (
+        {[dumbbellDetail, gymProfile, armsCrossed, machineImg, loadingPlate].map((img, i) => (
           <div key={i} className="flex-1 min-w-0">
             <img
               src={img}
@@ -895,16 +898,22 @@ function GallerySection() {
           className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 auto-rows-[200px] sm:auto-rows-[250px]"
         >
           <div className="row-span-2">
-            <img src={machineImg} alt="" className="w-full h-full object-cover rounded-md" />
+            <img src={dumbbellPickup} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-0" />
           </div>
           <div>
-            <img src={loadingPlate} alt="" className="w-full h-full object-cover rounded-md" />
+            <img src={loadingPlate} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-1" />
           </div>
           <div className="hidden md:block row-span-2">
-            <img src={curlImg} alt="" className="w-full h-full object-cover rounded-md" />
+            <img src={airBikeImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-2" />
           </div>
           <div>
-            <img src={dumbbellDetail} alt="" className="w-full h-full object-cover rounded-md" />
+            <img src={curlImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-3" />
+          </div>
+          <div>
+            <img src={machineImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-4" />
+          </div>
+          <div className="hidden md:block">
+            <img src={dumbbellDetail} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-5" />
           </div>
         </motion.div>
       </div>
