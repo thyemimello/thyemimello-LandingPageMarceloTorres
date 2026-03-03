@@ -40,6 +40,7 @@ import gymProfile from "@assets/WhatsApp_Image_2026-03-03_at_07.27.46_1772541482
 import dumbbellPickup from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_1772544013469.jpeg";
 import airBikeImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.40_1772544031441.jpeg";
 import armsCrossed from "@assets/WhatsApp_Image_2026-03-03_at_07.28.41_1772541482438.jpeg";
+import logoMT from "@assets/logo-mt.png";
 
 const WHATSAPP_NUMBER = "5547996106869";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -131,7 +132,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-3" data-testid="link-home">
-            <img src="/logo-mt.png" alt="Marcelo Torres" className="h-8 sm:h-10 w-auto" />
+            <img src={logoMT} alt="Marcelo Torres" className="h-8 sm:h-10 w-auto" />
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -881,40 +882,26 @@ function MentoriaSection() {
 }
 
 function GallerySection() {
-  const images = [
-    { src: machineImg, span: "col-span-1 row-span-2" },
-    { src: loadingPlate, span: "col-span-1 row-span-1" },
-    { src: dumbbellDetail, span: "col-span-1 row-span-1" },
-  ];
-
   return (
     <section className="py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 auto-rows-[200px] sm:auto-rows-[250px]"
+          className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 auto-rows-[220px] sm:auto-rows-[280px]"
         >
           <div className="row-span-2">
             <img src={dumbbellPickup} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-0" />
           </div>
           <div>
-            <img src={standingImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-1" />
+            <img src={curlImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-1" />
           </div>
           <div className="hidden md:block row-span-2">
             <img src={gymProfile} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-2" />
           </div>
-          <div>
-            <img src={curlImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-3" />
-          </div>
-          <div>
-            <img src={weightImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-4" />
-          </div>
-          <div className="hidden md:block">
-            <img src={sittingImg} alt="" className="w-full h-full object-cover rounded-md" data-testid="img-gallery-5" />
-          </div>
+        
         </motion.div>
       </div>
     </section>
@@ -998,7 +985,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img src="/logo-mt.png" alt="Marcelo Torres" className="h-6 w-auto" />
+            <img src={logoMT} alt="Marcelo Torres" className="h-6 w-auto" />
           </div>
 
           <div className="flex items-center gap-4">
