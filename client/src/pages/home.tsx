@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   Globe,
@@ -21,9 +21,21 @@ import {
   Check,
   Menu,
   X,
+  Play,
 } from "lucide-react";
 import { SiTiktok } from "react-icons/si";
+
 import logoMarcelo from "@assets/WhatsApp_Image_2026-02-19_at_10.00.17_1772540466099.jpeg";
+import heroImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.41_1772541482438.jpeg";
+import gymProfile from "@assets/WhatsApp_Image_2026-03-03_at_07.27.46_1772541482436.jpeg";
+import curlImg from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_(2)_1772541482437.jpeg";
+import sittingImg from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_(3)_1772541482437.jpeg";
+import phoneImg from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_(4)_1772541482437.jpeg";
+import dumbbellDetail from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_(1)_1772541482437.jpeg";
+import machineImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_(3)_1772541482439.jpeg";
+import standingImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_1772541482439.jpeg";
+import weightImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_(2)_1772541482439.jpeg";
+import loadingPlate from "@assets/WhatsApp_Image_2026-03-03_at_07.28.42_(1)_1772541482438.jpeg";
 
 const WHATSAPP_NUMBER = "5547996106869";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -42,6 +54,16 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
+const fadeInLeft = {
+  hidden: { opacity: 0, x: -60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const fadeInRight = {
+  hidden: { opacity: 0, x: 60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
 const staggerContainer = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.15 } },
@@ -51,6 +73,30 @@ const scaleIn = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
 };
+
+function CountUp({ target, duration = 2000 }: { target: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [isInView, target, duration]);
+
+  return <span ref={ref}>{count}</span>;
+}
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -74,17 +120,20 @@ function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/90 backdrop-blur-md border-b border-white/5" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? "bg-black/90 backdrop-blur-xl border-b border-white/5 py-2" : "bg-transparent py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 h-16 sm:h-20">
+        <div className="flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-3" data-testid="link-home">
             <img src={logoMarcelo} alt="MT" className="h-10 w-10 rounded-full object-cover border border-amber-500/30" />
-            <span className="font-heading font-bold text-lg tracking-wider uppercase gold-text">
-              Marcelo Torres
-            </span>
+            <div className="flex flex-col">
+              <span className="font-heading font-bold text-sm tracking-[0.2em] uppercase gold-text leading-tight">
+                Marcelo Torres
+              </span>
+              <span className="text-white/30 text-[9px] tracking-[0.15em] uppercase">Personal Trainer</span>
+            </div>
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -92,10 +141,11 @@ function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-white/70 hover:text-amber-400 transition-colors duration-200 no-underline"
+                className="text-sm font-medium text-white/60 hover:text-amber-400 transition-colors duration-300 no-underline relative group"
                 data-testid={`link-nav-${item.label.toLowerCase()}`}
               >
                 {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-amber-500 group-hover:w-full transition-all duration-300" />
               </a>
             ))}
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
@@ -120,14 +170,14 @@ function Navbar() {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-black/95 backdrop-blur-md border-t border-white/5"
+          className="md:hidden bg-black/95 backdrop-blur-xl border-t border-white/5"
         >
           <div className="px-4 py-4 flex flex-col gap-3">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-white/70 py-2 text-sm font-medium"
+                className="text-white/70 py-2 text-sm font-medium no-underline"
                 onClick={() => setMobileOpen(false)}
                 data-testid={`link-mobile-${item.label.toLowerCase()}`}
               >
@@ -148,105 +198,81 @@ function Navbar() {
 
 function HeroSection() {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const y = useTransform(scrollY, [0, 800], [0, 200]);
+  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const scale = useTransform(scrollY, [0, 800], [1, 1.1]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <motion.div
-        style={{ y }}
-        className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-background"
-      />
+    <section className="relative h-screen flex items-end justify-center overflow-hidden" data-testid="section-hero">
+      <motion.div style={{ y, scale }} className="absolute inset-0">
+        <img
+          src={heroImg}
+          alt="Marcelo Torres"
+          className="w-full h-full object-cover object-top"
+          data-testid="img-hero"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/30" />
+      </motion.div>
 
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl" />
-      </div>
-
-      <motion.div style={{ opacity }} className="relative z-10 max-w-5xl mx-auto px-4 text-center">
+      <motion.div style={{ opacity }} className="relative z-10 max-w-6xl mx-auto px-4 pb-16 sm:pb-24 w-full">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-8"
-        >
-          <img
-            src={logoMarcelo}
-            alt="Marcelo Torres"
-            className="w-28 h-28 sm:w-36 sm:h-36 rounded-full mx-auto object-cover border-2 border-amber-500/40 shadow-2xl shadow-amber-500/10"
-            data-testid="img-hero-logo"
-          />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          transition={{ duration: 1, delay: 0.3 }}
         >
-          <p className="text-amber-400/80 font-heading text-xs sm:text-sm tracking-[0.3em] uppercase mb-4">
+          <motion.p
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-amber-400/90 font-heading text-xs sm:text-sm tracking-[0.4em] uppercase mb-4"
+          >
             Personal Trainer
-          </p>
-          <h1 className="font-heading font-black text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6">
-            <span className="text-white">MARCELO</span>{" "}
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="font-heading font-black text-5xl sm:text-6xl md:text-8xl lg:text-9xl tracking-tighter leading-[0.85] mb-6"
+          >
+            <span className="text-white">MARCELO</span>
+            <br />
             <span className="gold-text">TORRES</span>
-          </h1>
-        </motion.div>
+          </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="text-white/50 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-4 leading-relaxed"
-        >
-          Mais de <span className="text-amber-400 font-semibold">10 anos</span> de experiência
-          transformando a vida de pessoas através da atividade física
-        </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.8 }}
+            className="max-w-md"
+          >
+            <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-8">
+              Mais de <span className="text-amber-400 font-semibold">10 anos</span> transformando
+              vidas através da atividade física. Alunos em{" "}
+              <span className="text-white font-medium">5 continentes</span>.
+            </p>
 
-        <motion.blockquote
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="text-white/70 italic text-sm sm:text-base md:text-lg max-w-xl mx-auto mb-10 border-l-2 border-amber-500/40 pl-4"
-        >
-          "Um corpo bonito nem sempre é saudável, mas um corpo saudável{" "}
-          <span className="text-amber-400 font-bold not-italic">SEMPRE</span> é{" "}
-          <span className="text-amber-400 font-bold not-italic">BONITO</span>"
-        </motion.blockquote>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-12"
-        >
-          <StatBadge icon={<Globe className="w-4 h-4" />} value="5" label="Continentes" />
-          <StatBadge icon={<MapPin className="w-4 h-4" />} value="17" label="Países" />
-          <StatBadge icon={<MapPin className="w-4 h-4" />} value="14" label="Estados BR" />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.7 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a href="#planos">
-            <Button size="lg" className="gold-gradient text-black font-heading font-bold text-sm tracking-wider px-8" data-testid="button-hero-plans">
-              VER PLANOS <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </a>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-            <Button variant="outline" size="lg" className="border-amber-500/30 text-amber-400 font-heading font-bold text-sm tracking-wider px-8" data-testid="button-hero-whatsapp">
-              <MessageCircle className="w-4 h-4 mr-2" /> WHATSAPP
-            </Button>
-          </a>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a href="#planos">
+                <Button size="lg" className="gold-gradient text-black font-heading font-bold text-sm tracking-wider px-8 w-full sm:w-auto" data-testid="button-hero-plans">
+                  VER PLANOS <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </a>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="lg" className="border-white/20 text-white font-heading font-bold text-sm tracking-wider px-8 backdrop-blur-sm bg-white/5 w-full sm:w-auto" data-testid="button-hero-whatsapp">
+                  <MessageCircle className="w-4 h-4 mr-2" /> WHATSAPP
+                </Button>
+              </a>
+            </div>
+          </motion.div>
         </motion.div>
       </motion.div>
 
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-white/30"
       >
         <ChevronDown className="w-6 h-6" />
       </motion.div>
@@ -254,93 +280,214 @@ function HeroSection() {
   );
 }
 
-function StatBadge({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
+function StatsBar() {
   return (
-    <div className="flex items-center gap-2 text-white/60" data-testid={`stat-${label.toLowerCase().replace(" ", "-")}`}>
-      <span className="text-amber-500">{icon}</span>
-      <span className="font-heading font-bold text-white text-lg">{value}</span>
-      <span className="text-xs uppercase tracking-wider">{label}</span>
-    </div>
+    <section className="relative py-16 sm:py-20 bg-black border-y border-white/5">
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4"
+        >
+          {[
+            { value: 10, suffix: "+", label: "Anos de experiência" },
+            { value: 5, suffix: "", label: "Continentes" },
+            { value: 17, suffix: "", label: "Países" },
+            { value: 14, suffix: "", label: "Estados brasileiros" },
+          ].map((stat) => (
+            <motion.div key={stat.label} variants={fadeInUp} className="text-center">
+              <p className="font-heading font-black text-4xl sm:text-5xl md:text-6xl gold-text mb-2">
+                <CountUp target={stat.value} />{stat.suffix}
+              </p>
+              <p className="text-white/40 text-xs sm:text-sm tracking-wider uppercase">{stat.label}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
-function SectionTitle({ white, gold, subtitle, id }: { white: string; gold: string; subtitle?: string; id?: string }) {
+function AboutSection() {
   return (
-    <motion.div
-      variants={fadeInUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      className="text-center mb-12 sm:mb-16"
-      id={id}
-    >
-      <div className="inline-block mb-4">
-        <div className="h-px w-12 bg-amber-500/50 mx-auto mb-4" />
-        <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight">
-          <span className="text-white">{white}</span>{" "}
-          <span className="gold-text">{gold}</span>
-        </h2>
-        <div className="h-px w-12 bg-amber-500/50 mx-auto mt-4" />
+    <section className="py-20 sm:py-32 px-4 relative" id="sobre">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <motion.div
+            variants={fadeInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="relative"
+          >
+            <div className="relative">
+              <img
+                src={gymProfile}
+                alt="Marcelo Torres"
+                className="w-full h-[500px] sm:h-[600px] object-cover rounded-md"
+                data-testid="img-about"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-md" />
+            </div>
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 sm:w-40 sm:h-40 border border-amber-500/20 rounded-md hidden lg:block" />
+          </motion.div>
+
+          <motion.div
+            variants={fadeInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <span className="text-amber-400/70 text-xs tracking-[0.3em] uppercase font-heading mb-4 block">
+              Quem sou eu
+            </span>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-6 leading-tight">
+              UM CORPO SAUDÁVEL{" "}
+              <span className="gold-text">SEMPRE</span>{" "}
+              É BONITO
+            </h2>
+            <div className="space-y-4 text-white/50 text-sm sm:text-base leading-relaxed">
+              <p>
+                Com mais de uma década dedicada à transformação de vidas, construí uma metodologia
+                que une ciência, prática e motivação para resultados reais e duradouros.
+              </p>
+              <p>
+                Atendo alunos em <span className="text-amber-400 font-medium">5 continentes</span>,{" "}
+                <span className="text-white font-medium">17 países</span> e{" "}
+                <span className="text-white font-medium">14 estados brasileiros</span>,
+                provando que distância não é barreira quando existe comprometimento.
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#planos">
+                <Button className="gold-gradient text-black font-heading font-bold text-xs tracking-wider" data-testid="button-about-plans">
+                  CONHEÇA OS PLANOS <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </a>
+              <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="border-white/10 text-white/70 font-heading text-xs tracking-wider" data-testid="button-about-instagram">
+                  <Instagram className="w-4 h-4 mr-2" /> @mtorrespersonal
+                </Button>
+              </a>
+            </div>
+          </motion.div>
+        </div>
       </div>
-      {subtitle && (
-        <p className="text-white/50 text-sm sm:text-base max-w-xl mx-auto mt-4">{subtitle}</p>
-      )}
-    </motion.div>
+    </section>
+  );
+}
+
+function PhotoStrip() {
+  return (
+    <section className="py-4 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="flex gap-2 sm:gap-4"
+      >
+        {[dumbbellDetail, curlImg, machineImg, loadingPlate].map((img, i) => (
+          <div key={i} className="flex-1 min-w-0">
+            <img
+              src={img}
+              alt={`Treino ${i + 1}`}
+              className="w-full h-48 sm:h-64 md:h-80 object-cover"
+              data-testid={`img-strip-${i}`}
+            />
+          </div>
+        ))}
+      </motion.div>
+    </section>
   );
 }
 
 function FatburnSection() {
   return (
-    <section className="py-20 sm:py-28 px-4 relative">
+    <section className="py-20 sm:py-28 px-4 relative" id="planos">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-amber-950/5 to-background" />
-      <div className="max-w-5xl mx-auto relative z-10">
-        <SectionTitle white="TREINE" gold="COMIGO" id="planos" />
+      <div className="max-w-6xl mx-auto relative z-10">
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-center mb-16"
+        >
+          <div className="h-px w-12 bg-amber-500/50 mx-auto mb-4" />
+          <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight">
+            <span className="text-white">TREINE</span>{" "}
+            <span className="gold-text">COMIGO</span>
+          </h2>
+          <div className="h-px w-12 bg-amber-500/50 mx-auto mt-4" />
+          <p className="text-white/40 text-sm mt-6 max-w-md mx-auto">
+            Escolha o plano ideal para a sua jornada de transformação
+          </p>
+        </motion.div>
 
         <motion.div
           variants={scaleIn}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="glass-card glass-card-hover rounded-2xl p-6 sm:p-10 max-w-2xl mx-auto transition-all duration-300"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-5xl mx-auto"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center">
-              <Flame className="w-6 h-6 text-black" />
-            </div>
-            <div>
-              <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">FATBURN</h3>
-              <p className="text-amber-400/70 text-xs tracking-wider uppercase">Grupo de Emagrecimento</p>
-            </div>
+          <div className="relative h-[400px] sm:h-[500px] rounded-md overflow-hidden hidden lg:block">
+            <img
+              src={curlImg}
+              alt="Fatburn"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/80" />
           </div>
 
-          <p className="text-white/60 text-sm sm:text-base mb-6 leading-relaxed">
-            Grupo de emagrecimento com competição que premia por desempenho.
-            Transforme seu corpo junto com outras pessoas motivadas!
-          </p>
+          <div className="glass-card glass-card-hover rounded-md p-6 sm:p-10 transition-all duration-300">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-md gold-gradient flex items-center justify-center">
+                <Flame className="w-6 h-6 text-black" />
+              </div>
+              <div>
+                <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">FATBURN</h3>
+                <p className="text-amber-400/70 text-xs tracking-wider uppercase">Grupo de Emagrecimento</p>
+              </div>
+            </div>
 
-          <div className="flex flex-wrap gap-4 mb-8">
-            <div className="flex items-center gap-2 text-white/50 text-sm">
-              <Clock className="w-4 h-4 text-amber-500" />
-              <span>Duração: <span className="text-white font-medium">30 dias</span></span>
-            </div>
-            <div className="flex items-center gap-2 text-white/50 text-sm">
-              <Trophy className="w-4 h-4 text-amber-500" />
-              <span>Premiação por <span className="text-white font-medium">desempenho</span></span>
-            </div>
-          </div>
+            <p className="text-white/50 text-sm sm:text-base mb-6 leading-relaxed">
+              Grupo de emagrecimento com competição que premia por desempenho.
+              Transforme seu corpo junto com outras pessoas motivadas!
+            </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/5">
-            <div>
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-1">Investimento</p>
-              <p className="font-heading font-black text-3xl sm:text-4xl gold-text">
-                R$ 199
-              </p>
+            <div className="flex flex-wrap gap-4 mb-8">
+              <div className="flex items-center gap-2 text-white/50 text-sm">
+                <Clock className="w-4 h-4 text-amber-500" />
+                <span>Duração: <span className="text-white font-medium">30 dias</span></span>
+              </div>
+              <div className="flex items-center gap-2 text-white/50 text-sm">
+                <Trophy className="w-4 h-4 text-amber-500" />
+                <span>Premiação por <span className="text-white font-medium">desempenho</span></span>
+              </div>
+              <div className="flex items-center gap-2 text-white/50 text-sm">
+                <Users className="w-4 h-4 text-amber-500" />
+                <span>Treino em <span className="text-white font-medium">grupo</span></span>
+              </div>
             </div>
-            <a href={PAYMENT_LINKS.fatburn} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="gold-gradient text-black font-heading font-bold tracking-wider px-8" data-testid="button-fatburn-buy">
-                QUERO PARTICIPAR <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </a>
+
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/5">
+              <div>
+                <p className="text-white/30 text-xs uppercase tracking-wider mb-1">Investimento</p>
+                <p className="font-heading font-black text-4xl gold-text">
+                  R$ 199
+                </p>
+              </div>
+              <a href={PAYMENT_LINKS.fatburn} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="gold-gradient text-black font-heading font-bold tracking-wider px-8" data-testid="button-fatburn-buy">
+                  QUERO PARTICIPAR <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -363,7 +510,7 @@ function ConsultoriaSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 mb-4">
             <Dumbbell className="w-5 h-5 text-amber-500" />
@@ -372,10 +519,10 @@ function ConsultoriaSection() {
           <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-4">
             CONSULTORIA <span className="gold-text">INDIVIDUAL</span>
           </h2>
-          <p className="text-white/50 text-sm sm:text-base max-w-xl mx-auto">
+          <p className="text-white/40 text-sm sm:text-base max-w-xl mx-auto">
             Monto treinos para você botar em prática em qualquer lugar do mundo, disponível no app.
           </p>
-          <p className="text-amber-400/60 text-xs mt-3 tracking-wider">
+          <p className="text-amber-400/50 text-xs mt-3 tracking-wider">
             Parcelado em até 18x sem juros via PagBank
           </p>
         </motion.div>
@@ -391,8 +538,8 @@ function ConsultoriaSection() {
             <motion.div
               key={plan.duration}
               variants={fadeInUp}
-              className={`relative glass-card glass-card-hover rounded-2xl p-6 sm:p-8 transition-all duration-300 ${
-                plan.popular ? "border-amber-500/30 md:scale-105" : ""
+              className={`relative glass-card glass-card-hover rounded-md p-6 sm:p-8 transition-all duration-300 ${
+                plan.popular ? "border-amber-500/30 md:scale-105 md:-my-4" : ""
               }`}
             >
               {plan.popular && (
@@ -403,15 +550,15 @@ function ConsultoriaSection() {
                 </div>
               )}
 
-              <div className="text-center mb-6">
-                <p className="text-white/40 text-xs uppercase tracking-wider mb-2">{plan.months}</p>
+              <div className="text-center mb-6 pt-2">
+                <p className="text-white/30 text-xs uppercase tracking-wider mb-2">{plan.months}</p>
                 <h3 className="font-heading font-bold text-lg text-white mb-1">{plan.duration}</h3>
               </div>
 
               <div className="text-center mb-8">
-                <p className="text-white/40 text-xs mb-1">A partir de</p>
+                <p className="text-white/30 text-xs mb-1">A partir de</p>
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-white/40 text-lg">R$</span>
+                  <span className="text-white/30 text-lg">R$</span>
                   <span className={`font-heading font-black text-4xl ${plan.popular ? "gold-text" : "text-white"}`}>
                     {plan.price}
                   </span>
@@ -425,7 +572,7 @@ function ConsultoriaSection() {
                   "Suporte via WhatsApp",
                   "Treino em qualquer lugar",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-white/60 text-sm">
+                  <li key={item} className="flex items-center gap-2 text-white/50 text-sm">
                     <Check className="w-4 h-4 text-amber-500 shrink-0" />
                     {item}
                   </li>
@@ -450,6 +597,40 @@ function ConsultoriaSection() {
   );
 }
 
+function FullWidthImage() {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 3000], [0, -100]);
+
+  return (
+    <section className="relative h-[50vh] sm:h-[60vh] overflow-hidden">
+      <motion.div style={{ y }} className="absolute inset-0">
+        <img
+          src={sittingImg}
+          alt="Marcelo Torres"
+          className="w-full h-[120%] object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-black/30 to-background" />
+      </motion.div>
+      <div className="relative z-10 flex items-center justify-center h-full px-4">
+        <motion.blockquote
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="text-center max-w-2xl"
+        >
+          <p className="text-white/80 italic text-lg sm:text-2xl md:text-3xl font-heading font-light leading-relaxed">
+            "Um corpo bonito nem sempre é saudável, mas um corpo saudável{" "}
+            <span className="gold-text font-bold not-italic">SEMPRE</span> é{" "}
+            <span className="gold-text font-bold not-italic">BONITO</span>"
+          </p>
+          <div className="h-px w-16 bg-amber-500/40 mx-auto mt-6" />
+        </motion.blockquote>
+      </div>
+    </section>
+  );
+}
+
 function PersonalDigitalSection() {
   const weekPlans = [
     { times: "2x", price: "800" },
@@ -466,77 +647,71 @@ function PersonalDigitalSection() {
 
   return (
     <section className="py-20 sm:py-28 px-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-amber-950/5 to-background" />
-      <div className="max-w-5xl mx-auto relative z-10">
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="text-center mb-12"
-        >
-          <div className="inline-flex items-center gap-2 mb-4">
-            <Video className="w-5 h-5 text-amber-500" />
-            <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Acompanhamento em Tempo Real</span>
-          </div>
-          <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-4">
-            PERSONAL <span className="gold-text">DIGITAL</span>
-          </h2>
-          <p className="text-white/50 text-sm sm:text-base max-w-xl mx-auto">
-            Se você precisa do acompanhamento em tempo real, para treinar com mais segurança,
-            eu posso te atender por vídeo chamada.
-          </p>
-        </motion.div>
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div
+            variants={fadeInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Video className="w-5 h-5 text-amber-500" />
+              <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Acompanhamento em Tempo Real</span>
+            </div>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-4">
+              PERSONAL <span className="gold-text">DIGITAL</span>
+            </h2>
+            <p className="text-white/40 text-sm sm:text-base mb-8 leading-relaxed">
+              Se você precisa do acompanhamento em tempo real, para treinar com mais segurança,
+              eu posso te atender por vídeo chamada. Planos mensais com dia e hora marcados.
+            </p>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
-        >
-          {weekPlans.map((plan) => (
-            <motion.div
-              key={plan.times}
-              variants={fadeInUp}
-              className="glass-card glass-card-hover rounded-xl p-5 text-center transition-all duration-300"
-            >
-              <p className="text-amber-400 font-heading font-bold text-lg mb-1">{plan.times}</p>
-              <p className="text-white/40 text-[10px] uppercase tracking-wider mb-3">na semana</p>
-              <p className="font-heading font-black text-xl sm:text-2xl text-white">
-                R$ {plan.price}
-              </p>
-              <p className="text-white/30 text-[10px] uppercase tracking-wider mt-1">/ mês</p>
-            </motion.div>
-          ))}
-        </motion.div>
+            <div className="grid grid-cols-2 gap-3 mb-8">
+              {weekPlans.map((plan) => (
+                <div
+                  key={plan.times}
+                  className="glass-card glass-card-hover rounded-md p-4 text-center transition-all duration-300"
+                >
+                  <p className="text-amber-400 font-heading font-bold text-base mb-0.5">{plan.times} <span className="text-white/30 text-xs font-normal">/ semana</span></p>
+                  <p className="font-heading font-black text-xl text-white">R$ {plan.price}</p>
+                </div>
+              ))}
+            </div>
 
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="glass-card rounded-xl p-6 mb-8"
-        >
-          <p className="text-white/40 text-xs uppercase tracking-wider text-center mb-4">
-            Descontos para planos mais longos (à vista)
-          </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            {discounts.map((d) => (
-              <div key={d.period} className="text-center">
-                <p className="text-amber-400 font-heading font-bold text-lg">{d.discount}</p>
-                <p className="text-white/50 text-xs">{d.period}</p>
+            <div className="glass-card rounded-md p-5 mb-8">
+              <p className="text-white/30 text-xs uppercase tracking-wider text-center mb-3">Descontos à vista</p>
+              <div className="flex justify-center gap-6">
+                {discounts.map((d) => (
+                  <div key={d.period} className="text-center">
+                    <p className="text-amber-400 font-heading font-bold text-lg">{d.discount}</p>
+                    <p className="text-white/40 text-xs">{d.period}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </motion.div>
+            </div>
 
-        <div className="text-center">
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="gold-gradient text-black font-heading font-bold tracking-wider px-8" data-testid="button-personal-digital-whatsapp">
-              <MessageCircle className="w-4 h-4 mr-2" /> AGENDAR VIA WHATSAPP
-            </Button>
-          </a>
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="gold-gradient text-black font-heading font-bold tracking-wider px-8 w-full sm:w-auto" data-testid="button-personal-digital-whatsapp">
+                <MessageCircle className="w-4 h-4 mr-2" /> AGENDAR VIA WHATSAPP
+              </Button>
+            </a>
+          </motion.div>
+
+          <motion.div
+            variants={fadeInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="relative hidden lg:block"
+          >
+            <img
+              src={phoneImg}
+              alt="Personal Digital"
+              className="w-full h-[550px] object-cover rounded-md"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black/40 rounded-md" />
+          </motion.div>
         </div>
       </div>
     </section>
@@ -559,89 +734,83 @@ function PersonalPresencialSection() {
 
   return (
     <section className="py-20 sm:py-28 px-4 relative">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="text-center mb-12"
-        >
-          <div className="inline-flex items-center gap-2 mb-4">
-            <Dumbbell className="w-5 h-5 text-amber-500" />
-            <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Balneário Camboriú</span>
-          </div>
-          <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-4">
-            PERSONAL <span className="gold-text">PRESENCIAL</span>
-          </h2>
-          <p className="text-white/50 text-sm sm:text-base max-w-xl mx-auto">
-            Treine comigo com dia e hora marcados em Balneário Camboriú.
-            Acompanhamento presencial com atenção total ao seu treino.
-          </p>
-        </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-amber-950/5 to-background" />
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div
+            variants={fadeInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="relative hidden lg:block"
+          >
+            <img
+              src={standingImg}
+              alt="Personal Presencial"
+              className="w-full h-[550px] object-cover rounded-md"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/40 rounded-md" />
+            <div className="absolute bottom-6 left-6 flex items-center gap-2 bg-black/60 backdrop-blur-md rounded-md px-4 py-2">
+              <MapPin className="w-4 h-4 text-amber-500" />
+              <span className="text-white/80 text-sm font-heading">Balneário Camboriú, SC</span>
+            </div>
+          </motion.div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
-        >
-          {weekPlans.map((plan) => (
-            <motion.div
-              key={plan.times}
-              variants={fadeInUp}
-              className="glass-card glass-card-hover rounded-xl p-5 text-center transition-all duration-300"
-            >
-              <p className="text-amber-400 font-heading font-bold text-lg mb-1">{plan.times}</p>
-              <p className="text-white/40 text-[10px] uppercase tracking-wider mb-3">na semana</p>
-              <p className="font-heading font-black text-xl sm:text-2xl text-white">
-                R$ {plan.price}
-              </p>
-              <p className="text-white/30 text-[10px] uppercase tracking-wider mt-1">/ mês</p>
-            </motion.div>
-          ))}
-        </motion.div>
+          <motion.div
+            variants={fadeInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Dumbbell className="w-5 h-5 text-amber-500" />
+              <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Balneário Camboriú</span>
+            </div>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-4">
+              PERSONAL <span className="gold-text">PRESENCIAL</span>
+            </h2>
+            <p className="text-white/40 text-sm sm:text-base mb-8 leading-relaxed">
+              Treine comigo com dia e hora marcados em Balneário Camboriú.
+              Acompanhamento presencial com atenção total ao seu treino.
+            </p>
 
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="glass-card rounded-xl p-6 mb-8"
-        >
-          <p className="text-white/40 text-xs uppercase tracking-wider text-center mb-4">
-            Descontos para planos mais longos (à vista)
-          </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            {discounts.map((d) => (
-              <div key={d.period} className="text-center">
-                <p className="text-amber-400 font-heading font-bold text-lg">{d.discount}</p>
-                <p className="text-white/50 text-xs">{d.period}</p>
+            <div className="grid grid-cols-2 gap-3 mb-8">
+              {weekPlans.map((plan) => (
+                <div
+                  key={plan.times}
+                  className="glass-card glass-card-hover rounded-md p-4 text-center transition-all duration-300"
+                >
+                  <p className="text-amber-400 font-heading font-bold text-base mb-0.5">{plan.times} <span className="text-white/30 text-xs font-normal">/ semana</span></p>
+                  <p className="font-heading font-black text-xl text-white">R$ {plan.price}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="glass-card rounded-md p-5 mb-8">
+              <p className="text-white/30 text-xs uppercase tracking-wider text-center mb-3">Descontos à vista</p>
+              <div className="flex justify-center gap-6">
+                {discounts.map((d) => (
+                  <div key={d.period} className="text-center">
+                    <p className="text-amber-400 font-heading font-bold text-lg">{d.discount}</p>
+                    <p className="text-white/40 text-xs">{d.period}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </motion.div>
+            </div>
 
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="glass-card rounded-xl p-6 mb-8"
-        >
-          <div className="flex items-center justify-center gap-2 text-white/60 text-sm">
-            <MapPin className="w-4 h-4 text-amber-500" />
-            <span>Balneário Camboriú, SC - Brasil</span>
-          </div>
-        </motion.div>
+            <div className="lg:hidden glass-card rounded-md p-4 mb-8">
+              <div className="flex items-center justify-center gap-2 text-white/60 text-sm">
+                <MapPin className="w-4 h-4 text-amber-500" />
+                <span>Balneário Camboriú, SC - Brasil</span>
+              </div>
+            </div>
 
-        <div className="text-center">
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="gold-gradient text-black font-heading font-bold tracking-wider px-8" data-testid="button-personal-presencial-whatsapp">
-              <MessageCircle className="w-4 h-4 mr-2" /> AGENDAR VIA WHATSAPP
-            </Button>
-          </a>
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="gold-gradient text-black font-heading font-bold tracking-wider px-8 w-full sm:w-auto" data-testid="button-personal-presencial-whatsapp">
+                <MessageCircle className="w-4 h-4 mr-2" /> AGENDAR VIA WHATSAPP
+              </Button>
+            </a>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -651,41 +820,37 @@ function PersonalPresencialSection() {
 function MentoriaSection() {
   return (
     <section className="py-20 sm:py-28 px-4 relative" id="mentoria">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-amber-950/5 to-background" />
-      <div className="max-w-4xl mx-auto relative z-10">
-        <motion.div
-          variants={scaleIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="glass-card rounded-2xl p-8 sm:p-12 text-center relative border border-amber-500/20"
-        >
-          <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-            <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center">
-              <GraduationCap className="w-6 h-6 text-black" />
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div
+            variants={fadeInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <div className="inline-flex items-center gap-2 mb-4">
+              <GraduationCap className="w-5 h-5 text-amber-500" />
+              <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Para Profissionais</span>
             </div>
-          </div>
-
-          <div className="mt-4">
-            <span className="text-amber-400/70 text-xs tracking-[0.2em] uppercase font-heading">Para Profissionais</span>
-            <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mt-3 mb-6">
+            <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight text-white mb-6 leading-tight">
               MENTORIA PARA <span className="gold-text">TREINADORES</span>
             </h2>
-            <p className="text-white/50 text-sm sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
+            <p className="text-white/40 text-sm sm:text-base mb-8 leading-relaxed">
               Tenha saúde financeira e aprenda como prospectar, reter e fidelizar clientes
               diversificando seu serviço e precificando sua entrega de forma presencial e online.
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+            <div className="grid grid-cols-2 gap-4 mb-10">
               {[
-                { icon: <Users className="w-5 h-5" />, label: "Prospectar" },
-                { icon: <Star className="w-5 h-5" />, label: "Reter" },
-                { icon: <Trophy className="w-5 h-5" />, label: "Fidelizar" },
-                { icon: <Calendar className="w-5 h-5" />, label: "Precificar" },
+                { icon: <Users className="w-5 h-5" />, label: "Prospectar", desc: "Novos clientes" },
+                { icon: <Star className="w-5 h-5" />, label: "Reter", desc: "Alunos ativos" },
+                { icon: <Trophy className="w-5 h-5" />, label: "Fidelizar", desc: "Base leal" },
+                { icon: <Calendar className="w-5 h-5" />, label: "Precificar", desc: "Seu valor" },
               ].map((item) => (
-                <div key={item.label} className="text-center">
-                  <div className="text-amber-500 mb-2 flex justify-center">{item.icon}</div>
-                  <p className="text-white/60 text-xs font-medium">{item.label}</p>
+                <div key={item.label} className="glass-card rounded-md p-4">
+                  <div className="text-amber-500 mb-2">{item.icon}</div>
+                  <p className="text-white font-heading font-bold text-sm">{item.label}</p>
+                  <p className="text-white/30 text-xs">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -695,6 +860,56 @@ function MentoriaSection() {
                 QUERO A MENTORIA <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </a>
+          </motion.div>
+
+          <motion.div
+            variants={fadeInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="relative hidden lg:block"
+          >
+            <img
+              src={weightImg}
+              alt="Mentoria"
+              className="w-full h-[550px] object-cover rounded-md"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black/30 rounded-md" />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GallerySection() {
+  const images = [
+    { src: machineImg, span: "col-span-1 row-span-2" },
+    { src: loadingPlate, span: "col-span-1 row-span-1" },
+    { src: dumbbellDetail, span: "col-span-1 row-span-1" },
+  ];
+
+  return (
+    <section className="py-16 px-4">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 auto-rows-[200px] sm:auto-rows-[250px]"
+        >
+          <div className="row-span-2">
+            <img src={machineImg} alt="" className="w-full h-full object-cover rounded-md" />
+          </div>
+          <div>
+            <img src={loadingPlate} alt="" className="w-full h-full object-cover rounded-md" />
+          </div>
+          <div className="hidden md:block row-span-2">
+            <img src={curlImg} alt="" className="w-full h-full object-cover rounded-md" />
+          </div>
+          <div>
+            <img src={dumbbellDetail} alt="" className="w-full h-full object-cover rounded-md" />
           </div>
         </motion.div>
       </div>
@@ -706,7 +921,21 @@ function SocialSection() {
   return (
     <section className="py-20 sm:py-28 px-4" id="contato">
       <div className="max-w-4xl mx-auto">
-        <SectionTitle white="CONHEÇA MINHAS" gold="MÍDIAS" subtitle="Acompanhe meu conteúdo nas redes sociais" />
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-center mb-12 sm:mb-16"
+        >
+          <div className="h-px w-12 bg-amber-500/50 mx-auto mb-4" />
+          <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl tracking-tight">
+            <span className="text-white">CONHEÇA MINHAS</span>{" "}
+            <span className="gold-text">MÍDIAS</span>
+          </h2>
+          <div className="h-px w-12 bg-amber-500/50 mx-auto mt-4" />
+          <p className="text-white/40 text-sm mt-6">Acompanhe meu conteúdo nas redes sociais</p>
+        </motion.div>
 
         <motion.div
           variants={staggerContainer}
@@ -720,12 +949,12 @@ function SocialSection() {
             href={INSTAGRAM_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="glass-card glass-card-hover rounded-xl p-6 text-center group transition-all duration-300"
+            className="glass-card glass-card-hover rounded-md p-8 text-center group transition-all duration-300 no-underline"
             data-testid="link-instagram"
           >
             <Instagram className="w-8 h-8 text-amber-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
             <p className="font-heading font-bold text-white text-sm">Instagram</p>
-            <p className="text-white/40 text-xs mt-1">@mtorrespersonal</p>
+            <p className="text-white/30 text-xs mt-1">@mtorrespersonal</p>
           </motion.a>
 
           <motion.a
@@ -733,12 +962,12 @@ function SocialSection() {
             href="https://youtube.com/@mtorrespersonal"
             target="_blank"
             rel="noopener noreferrer"
-            className="glass-card glass-card-hover rounded-xl p-6 text-center group transition-all duration-300"
+            className="glass-card glass-card-hover rounded-md p-8 text-center group transition-all duration-300 no-underline"
             data-testid="link-youtube"
           >
             <Youtube className="w-8 h-8 text-amber-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
             <p className="font-heading font-bold text-white text-sm">YouTube</p>
-            <p className="text-white/40 text-xs mt-1">Marcelo Torres</p>
+            <p className="text-white/30 text-xs mt-1">Marcelo Torres</p>
           </motion.a>
 
           <motion.a
@@ -746,12 +975,12 @@ function SocialSection() {
             href="https://tiktok.com/@mtorrespersonal"
             target="_blank"
             rel="noopener noreferrer"
-            className="glass-card glass-card-hover rounded-xl p-6 text-center group transition-all duration-300"
+            className="glass-card glass-card-hover rounded-md p-8 text-center group transition-all duration-300 no-underline"
             data-testid="link-tiktok"
           >
             <SiTiktok className="w-7 h-7 text-amber-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
             <p className="font-heading font-bold text-white text-sm">TikTok</p>
-            <p className="text-white/40 text-xs mt-1">@mtorrespersonal</p>
+            <p className="text-white/30 text-xs mt-1">@mtorrespersonal</p>
           </motion.a>
         </motion.div>
       </div>
@@ -835,12 +1064,16 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
-      <div id="sobre" className="scroll-mt-20" />
+      <StatsBar />
+      <AboutSection />
+      <PhotoStrip />
       <FatburnSection />
       <ConsultoriaSection />
+      <FullWidthImage />
       <PersonalDigitalSection />
       <PersonalPresencialSection />
       <MentoriaSection />
+      <GallerySection />
       <SocialSection />
       <Footer />
       <WhatsAppFloat />
