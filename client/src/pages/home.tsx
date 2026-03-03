@@ -41,6 +41,7 @@ import dumbbellPickup from "@assets/WhatsApp_Image_2026-03-03_at_07.27.47_177254
 import airBikeImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.40_1772544031441.jpeg";
 import armsCrossed from "@assets/WhatsApp_Image_2026-03-03_at_07.28.41_1772541482438.jpeg";
 import logoMT from "@assets/logo-mt.png";
+import thypeLogo from "@assets/thype-logo.png";
 
 const WHATSAPP_NUMBER = "5547996106869";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -984,7 +985,7 @@ function Footer() {
             data-testid="link-thypetech"
           >
             <span>Desenvolvido por</span>
-            <img src="/thype-logo.png" alt="thypeTech" className="h-4 w-auto" />
+            <img src={thypeLogo} alt="thypeTech" className="h-4 w-auto" />
             <span className="font-medium">thypeTech</span>
           </a>
         </div>
