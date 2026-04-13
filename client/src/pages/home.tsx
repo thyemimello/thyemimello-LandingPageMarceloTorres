@@ -891,6 +891,7 @@ function ParceirosSection() {
       especialidade: "Médico",
       descricao: "Marque uma consulta médica on-line focada no equilíbrio metabólico e hormonal com pedido e análise de exames e receita personalizada integrada ao treinamento.",
       link: "https://pag.ae/81z4Do3G9",
+      imgPosition: "center 35%",
     },
     {
       img: nutriImg,
@@ -899,6 +900,7 @@ function ParceirosSection() {
       especialidade: "Nutricionista",
       descricao: "Você precisa de uma dieta? Consulte nosso nutricionista por vídeo chamada para ter um plano alimentar personalizado.",
       link: "https://pag.ae/81z4Do3G9",
+      imgPosition: "center center",
     },
   ];
 
@@ -938,7 +940,8 @@ function ParceirosSection() {
                 <img
                   src={p.img}
                   alt={p.nome}
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  style={{objectPosition: p.imgPosition}}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                 <div className="absolute bottom-3 left-4">
