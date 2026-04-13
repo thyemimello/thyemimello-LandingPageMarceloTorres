@@ -42,7 +42,7 @@ import airBikeImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.40_1772544031
 import armsCrossed from "@assets/WhatsApp_Image_2026-03-03_at_07.28.41_1772541482438.jpeg";
 import logoMT from "@assets/logo-mt.png";
 import thypeLogo from "@assets/thype-logo.png";
-import fatburnLogo from "@assets/LOGO_(1)_1776099066290.png";
+import fatburnLogo from "@assets/image_1776099252427.png";
 import drBrunoImg from "@assets/IMG_0523.JPG_1776098753676.jpeg";
 import nutriImg from "@assets/image_1776099028659.png";
 
@@ -450,7 +450,7 @@ function FatburnSection() {
 
           <div className="glass-card glass-card-hover rounded-md p-6 sm:p-10 transition-all duration-300">
             <div className="mb-6 flex flex-col items-end">
-              <img src={fatburnLogo} alt="Fat Burn KG por KG" className="h-28 sm:h-36 w-auto" />
+              <img src={fatburnLogo} alt="Fat Burn KG por KG" className="h-28 sm:h-36 w-auto" style={{mixBlendMode: "screen"}} />
               <p className="text-orange-400/70 text-xs tracking-wider uppercase mt-2">Grupo de Emagrecimento</p>
             </div>
 
