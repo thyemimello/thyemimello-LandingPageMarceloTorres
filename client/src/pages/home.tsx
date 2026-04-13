@@ -449,11 +449,11 @@ function FatburnSection() {
           </div>
 
           <div className="glass-card glass-card-hover rounded-md p-6 sm:p-10 transition-all duration-300">
-            <div className="mb-4 flex flex-col items-end">
+            <div className="flex justify-center -mx-6 sm:-mx-10 -mt-6 sm:-mt-10 mb-2">
               <img
                 src={fatburnLogo}
                 alt="Fat Burn KG por KG"
-                className="h-36 sm:h-44 w-auto"
+                className="h-40 sm:h-48 w-auto"
                 style={{mixBlendMode: "screen"}}
               />
             </div>
