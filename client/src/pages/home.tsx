@@ -42,6 +42,9 @@ import airBikeImg from "@assets/WhatsApp_Image_2026-03-03_at_07.28.40_1772544031
 import armsCrossed from "@assets/WhatsApp_Image_2026-03-03_at_07.28.41_1772541482438.jpeg";
 import logoMT from "@assets/logo-mt.png";
 import thypeLogo from "@assets/thype-logo.png";
+import fatburnLogo from "@assets/LOGO_(1)_1776099066290.png";
+import drBrunoImg from "@assets/IMG_0523.JPG_1776098753676.jpeg";
+import nutriImg from "@assets/image_1776099028659.png";
 
 const WHATSAPP_NUMBER = "5547996106869";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -118,6 +121,7 @@ function Navbar() {
     { label: "Sobre", href: "#sobre" },
     { label: "Planos", href: "#planos" },
     { label: "Mentoria", href: "#mentoria" },
+    { label: "Parceiros", href: "#parceiros" },
     { label: "Contato", href: "#contato" },
   ];
 
@@ -445,14 +449,9 @@ function FatburnSection() {
           </div>
 
           <div className="glass-card glass-card-hover rounded-md p-6 sm:p-10 transition-all duration-300">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-md gold-gradient flex items-center justify-center">
-                <Flame className="w-6 h-6 text-black" />
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">FATBURN</h3>
-                <p className="text-orange-400/70 text-xs tracking-wider uppercase">Grupo de Emagrecimento</p>
-              </div>
+            <div className="mb-6">
+              <img src={fatburnLogo} alt="Fat Burn KG por KG" className="h-16 sm:h-20 w-auto" style={{mixBlendMode: "screen"}} />
+              <p className="text-orange-400/70 text-xs tracking-wider uppercase mt-2">Grupo de Emagrecimento</p>
             </div>
 
             <p className="text-white/50 text-sm sm:text-base mb-6 leading-relaxed">
@@ -883,6 +882,96 @@ function MentoriaSection() {
 }
 
 
+function ParceirosSection() {
+  const parceiros = [
+    {
+      img: drBrunoImg,
+      nome: "Dr. Bruno Ferraz",
+      registro: "CRM SC22841",
+      especialidade: "Médico",
+      descricao: "Marque uma consulta médica on-line focada no equilíbrio metabólico e hormonal com pedido e análise de exames e receita personalizada integrada ao treinamento.",
+      link: "https://pag.ae/81z4Do3G9",
+    },
+    {
+      img: nutriImg,
+      nome: "Gustavo Melegassi",
+      registro: "CRN 104439",
+      especialidade: "Nutricionista",
+      descricao: "Você precisa de uma dieta? Consulte nosso nutricionista por vídeo chamada para ter um plano alimentar personalizado.",
+      link: "https://pag.ae/81z4Do3G9",
+    },
+  ];
+
+  return (
+    <section className="py-16 sm:py-20 px-4 relative" id="parceiros">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-center mb-12"
+        >
+          <div className="h-px w-8 bg-orange-500/30 mx-auto mb-4" />
+          <p className="text-white/30 text-xs tracking-[0.25em] uppercase mb-2">Ecossistema de saúde</p>
+          <h2 className="font-heading font-bold text-2xl sm:text-3xl text-white/80">
+            Parceiros <span className="gold-text">Especializados</span>
+          </h2>
+          <p className="text-white/30 text-sm mt-3 max-w-lg mx-auto">
+            Profissionais selecionados que trabalham integrados ao seu treinamento para resultados completos
+          </p>
+          <div className="h-px w-8 bg-orange-500/30 mx-auto mt-4" />
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {parceiros.map((p, i) => (
+            <motion.div
+              key={i}
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-30px" }}
+              className="glass-card rounded-md overflow-hidden group"
+              data-testid={`card-parceiro-${i}`}
+            >
+              <div className="relative h-52 overflow-hidden">
+                <img
+                  src={p.img}
+                  alt={p.nome}
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                <div className="absolute bottom-3 left-4">
+                  <span className="text-orange-400/80 text-[10px] tracking-widest uppercase font-medium">{p.especialidade}</span>
+                  <h3 className="font-heading font-bold text-white text-lg leading-tight">{p.nome}</h3>
+                  <p className="text-white/30 text-[10px] tracking-wider">{p.registro}</p>
+                </div>
+              </div>
+              <div className="p-5">
+                <p className="text-white/40 text-sm leading-relaxed mb-5">{p.descricao}</p>
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid={`button-parceiro-${i}`}
+                >
+                  <Button
+                    size="sm"
+                    className="w-full bg-white/5 hover:bg-orange-500/20 border border-white/10 hover:border-orange-500/40 text-white/70 hover:text-orange-300 font-heading tracking-wider text-xs transition-all duration-300"
+                    variant="outline"
+                  >
+                    Agendar Consulta
+                  </Button>
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SocialSection() {
   return (
     <section className="py-20 sm:py-28 px-4" id="contato">
@@ -1036,7 +1125,7 @@ export default function Home() {
       <PersonalDigitalSection />
       <PersonalPresencialSection />
       <MentoriaSection />
-      
+      <ParceirosSection />
       <SocialSection />
       <Footer />
       <WhatsAppFloat />
