@@ -933,25 +933,17 @@ function ParceirosSection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-30px" }}
-              className="glass-card rounded-md overflow-hidden group"
+              className="glass-card rounded-md overflow-hidden group flex flex-row h-64"
               data-testid={`card-parceiro-${i}`}
             >
-              <div className="relative h-52 overflow-hidden">
-                <img
-                  src={p.img}
-                  alt={p.nome}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  style={{objectPosition: p.imgPosition}}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                <div className="absolute bottom-3 left-4">
+              {/* Texto à esquerda */}
+              <div className="flex flex-col justify-between p-5 flex-1 min-w-0">
+                <div>
                   <span className="text-orange-400/80 text-[10px] tracking-widest uppercase font-medium">{p.especialidade}</span>
-                  <h3 className="font-heading font-bold text-white text-lg leading-tight">{p.nome}</h3>
-                  <p className="text-white/30 text-[10px] tracking-wider">{p.registro}</p>
+                  <h3 className="font-heading font-bold text-white text-base sm:text-lg leading-tight mt-1">{p.nome}</h3>
+                  <p className="text-white/30 text-[10px] tracking-wider mb-3">{p.registro}</p>
+                  <p className="text-white/40 text-xs sm:text-sm leading-relaxed line-clamp-4">{p.descricao}</p>
                 </div>
-              </div>
-              <div className="p-5">
-                <p className="text-white/40 text-sm leading-relaxed mb-5">{p.descricao}</p>
                 <a
                   href={p.link}
                   target="_blank"
@@ -960,12 +952,22 @@ function ParceirosSection() {
                 >
                   <Button
                     size="sm"
-                    className="w-full bg-white/5 hover:bg-orange-500/20 border border-white/10 hover:border-orange-500/40 text-white/70 hover:text-orange-300 font-heading tracking-wider text-xs transition-all duration-300"
+                    className="w-full bg-white/5 hover:bg-orange-500/20 border border-white/10 hover:border-orange-500/40 text-white/70 hover:text-orange-300 font-heading tracking-wider text-xs transition-all duration-300 mt-3"
                     variant="outline"
                   >
                     Agendar Consulta
                   </Button>
                 </a>
+              </div>
+              {/* Imagem à direita */}
+              <div className="relative w-36 sm:w-44 flex-shrink-0 overflow-hidden">
+                <img
+                  src={p.img}
+                  alt={p.nome}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  style={{objectPosition: p.imgPosition}}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
               </div>
             </motion.div>
           ))}
