@@ -1021,7 +1021,7 @@ function SocialSection() {
 
           <motion.a
             variants={fadeInUp}
-            href="https://youtube.com/@mtorrespersonal"
+            href="https://youtube.com/@personalmarcelotorres?si=jMnoaONI1tmgTv_Q"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-card glass-card-hover rounded-md p-8 text-center group transition-all duration-300 no-underline"
