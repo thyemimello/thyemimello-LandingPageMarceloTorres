@@ -450,7 +450,19 @@ function FatburnSection() {
 
           <div className="glass-card glass-card-hover rounded-md p-6 sm:p-10 transition-all duration-300">
             <div className="mb-6 flex flex-col items-end">
-              <img src={fatburnLogo} alt="Fat Burn KG por KG" className="h-28 sm:h-36 w-auto" style={{mixBlendMode: "screen"}} />
+              <div className="overflow-hidden" style={{width: "240px", height: "116px", position: "relative"}}>
+                <img
+                  src={fatburnLogo}
+                  alt="Fat Burn KG por KG"
+                  style={{
+                    mixBlendMode: "screen",
+                    position: "absolute",
+                    width: "966px",
+                    left: "0px",
+                    top: "0px",
+                  }}
+                />
+              </div>
               <p className="text-orange-400/70 text-xs tracking-wider uppercase mt-2">Grupo de Emagrecimento</p>
             </div>
 
